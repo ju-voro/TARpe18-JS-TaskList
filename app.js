@@ -35,7 +35,28 @@ function addTask(event){
     link.innerHTML = 'X';
     li.appendChild(link);
     taskList.appendChild(li);
+  
+    //store in LocalStorage
+
+    storeInLocalStorage(taskInput.value);
+    taskInput.value = '';
+    
     event.preventDefault();
+}
+
+function storeInLocalStorage(task){
+    //declare an array to read from the local storage
+    console.log(taskInput.value);
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    }else {
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    
+    //add a task to the tasks array
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function removeTask(event){
@@ -68,3 +89,4 @@ function filterTasks(event){
     });
 
 }
+
